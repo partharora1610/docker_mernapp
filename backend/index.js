@@ -84,13 +84,8 @@ app.delete("/goals/:id", async (req, res) => {
   }
 });
 
-// 172.17.0.2
-// Need to change this to the IP of the mongo container
-// docker url
-// docker.host.internal
-
 mongoose.connect(
-  "mongodb://host.docker.internal:27017/course-goals",
+  "mongodb://mongodb:27017/course-goals",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -101,7 +96,7 @@ mongoose.connect(
       console.error(err);
     } else {
       console.log("CONNECTED TO MONGODB");
-      app.listen(3000);
+      app.listen(3001);
     }
   }
 );

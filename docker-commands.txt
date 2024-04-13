@@ -1,0 +1,70 @@
+
+----------------------------
+docker command to run the mongodb instance
+    - cmd: docker run --name mongodb --rm -p 27017:27017 mongo   
+    - name<placeholder> flag exposes name to the container
+
+
+
+
+--------------------
+Starting the network
+--------------------
+docker network create mern-net
+
+
+--------------------
+Starting MongoDB in the network
+*using official image of MongoDB from dockerhub
+--------------------
+docker run \
+    --name monogdb \
+    --rm \
+    --network mern-net \
+    mongo
+
+
+--------------------
+Building an Image for the express app
+*cd into the backend folder
+--------------------
+docker build -t parth1610/mern-be .
+
+
+--------------------
+Starting the express app container
+--------------------
+docker run \
+    --name mern-be \
+    --rm \
+    --network mern-net \
+    -p 3000:3000 \
+    parth1610/mern-be
+
+
+
+--------------------
+Building an Image for the React SPA
+*cd into the frontend folder
+--------------------
+docker build -t parth1610/mern-fe .
+
+
+--------------------
+Starting the React app container
+--------------------
+docker run \
+    --name mern-fe \
+    --rm \
+    --network mern-net \
+    -p 3001:3000 \
+    parth1610/mern-fe
+
+
+--------------------
+Stop all the containers
+--------------------
+docker stop mern-be mern-fe monogdb
+
+
+// Need to add the command for envir v, bind , volumes ??
